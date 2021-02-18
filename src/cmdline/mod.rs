@@ -96,6 +96,7 @@ fn valid_element(s: &str) -> Result<()> {
 /// let cl_cstring = CString::new(cl).unwrap();
 /// assert_eq!(cl_cstring.to_str().unwrap(), "");
 /// ```
+#[derive(Clone)]
 pub struct Cmdline {
     line: String,
     capacity: usize,
@@ -330,6 +331,21 @@ impl Cmdline {
         size.to_string()
     }
 }
+
+impl fmt::Debug for Cmdline {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}", self.line)
+    }
+}
+
+/*impl Clone for Cmdline {
+    fn clone(&self) -> Self {
+        Cmdline {
+            line: self.line.clone(),
+            capacity: self.capacity,
+        }
+    }
+}*/
 
 impl Into<Vec<u8>> for Cmdline {
     fn into(self) -> Vec<u8> {
